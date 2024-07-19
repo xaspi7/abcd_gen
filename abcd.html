@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generátor Náhodného Písmena</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .letter {
+            font-size: 100px;
+            margin: 20px 0;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generátor Náhodného Písmena</h1>
+        <div id="letter" class="letter">A</div>
+        <button id="generateButton">Generuj</button>
+    </div>
+    <script>
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let displayLetter = document.getElementById('letter');
+            let interval = setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * letters.length);
+                const randomLetter = letters[randomIndex];
+                const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                displayLetter.textContent = randomLetter;
+                displayLetter.style.color = randomColor;
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(interval);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
