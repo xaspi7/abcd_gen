@@ -56,7 +56,6 @@
             padding: 10px;
             border-radius: 5px;
             display: inline-block;
-            background-color: #007BFF;
         }
 
         .explanation-list {
@@ -68,10 +67,6 @@
         .explanation-item {
             font-size: 18px;
             margin: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #ffffff;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .explanation-item span {
@@ -122,6 +117,8 @@
             'Z': 'Chug for 5 seconds'
         };
 
+        const colors = {};
+
         function getRandomColor() {
             return '#' + Math.floor(Math.random() * 16777215).toString(16);
         }
@@ -133,7 +130,7 @@
             let interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * letters.length);
                 const randomLetter = letters[randomIndex];
-                const randomColor = getRandomColor();
+                const randomColor = colors[randomLetter];
                 displayLetter.textContent = randomLetter;
                 displayLetter.style.color = randomColor;
             }, 100);
@@ -142,16 +139,17 @@
                 clearInterval(interval);
                 const finalLetter = displayLetter.textContent;
                 explanationText.textContent = explanations[finalLetter];
-                explanationText.style.backgroundColor = getRandomColor();
+                explanationText.style.backgroundColor = colors[finalLetter];
             }, 2000);
         });
 
         const explanationList = document.querySelector('.explanation-list');
         for (let letter in explanations) {
+            const color = getRandomColor();
+            colors[letter] = color;
             let explanationItem = document.createElement('div');
             explanationItem.className = 'explanation-item';
-            explanationItem.innerHTML = `<span>${letter}</span> = ${explanations[letter]}`;
-            explanationItem.style.backgroundColor = getRandomColor();
+            explanationItem.innerHTML = `<span style="color: ${color};">${letter}</span> = ${explanations[letter]}`;
             explanationList.appendChild(explanationItem);
         }
     </script>
