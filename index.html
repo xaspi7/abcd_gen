@@ -13,6 +13,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            background-color: #e0e0e0; /* Nastavení šedé barvy pozadí */
         }
 
         .container {
@@ -60,8 +61,7 @@
             display: inline-block;
             text-align: center;
             max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
+            background-color: #007BFF; /* Nastavení výchozí barvy pozadí */
         }
 
         .explanation-table {
@@ -141,7 +141,19 @@
         const colors = {};
 
         function getRandomColor() {
-            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+            let color;
+            do {
+                color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            } while (isColorTooLight(color));
+            return color;
+        }
+
+        function isColorTooLight(color) {
+            const r = parseInt(color.substr(1, 2), 16);
+            const g = parseInt(color.substr(3, 2), 16);
+            const b = parseInt(color.substr(5, 2), 16);
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            return brightness > 200;
         }
 
         document.getElementById('generateButton').addEventListener('click', function() {
